@@ -1,9 +1,12 @@
 package com.valentinhinov.ganandroidtest.data.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Parcelize
 data class SeriesCharacter(
     @SerialName("char_id")
     val id: Int,
@@ -17,4 +20,4 @@ data class SeriesCharacter(
     val seasonAppearances: List<Int>,
     val nickname: String,
     val portrayed: String
-)
+) : Parcelable

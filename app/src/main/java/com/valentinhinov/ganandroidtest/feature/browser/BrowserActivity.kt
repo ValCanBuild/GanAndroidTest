@@ -1,16 +1,14 @@
 package com.valentinhinov.ganandroidtest.feature.browser
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.valentinhinov.ganandroidtest.R
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
+import com.valentinhinov.ganandroidtest.feature.detail.DetailBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_browser.*
 
 class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
@@ -38,31 +36,31 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
                 SeriesCharacter(
                     1,
                     "Walter White",
-                    occupations = emptyList(),
+                    occupations = listOf("High School Chemistry Teacher", "Meth dealer"),
                     imgUrl = "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
+                    status = "Presumed dead",
+                    seasonAppearances = listOf(1,2,3,4,5),
                     nickname = "Heisenberg",
                     portrayed = "Brian Cranston"
                 ),
                 SeriesCharacter(
                     2,
                     "Jesse Pinkman",
-                    occupations = emptyList(),
+                    occupations = listOf("Meth dealer"),
                     imgUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Jesse_Pinkman2.jpg/220px-Jesse_Pinkman2.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
+                    status = "Alive",
+                    seasonAppearances = listOf(1,2,3,5),
                     nickname = "Cap n' Cook",
                     portrayed = "AAron Paul"
                 ),
                 SeriesCharacter(
                     3,
                     "Skyler White",
-                    occupations = emptyList(),
+                    occupations = listOf("House Wife", "Book Keeper"),
                     imgUrl = "https://s-i.huffpost.com/gen/1317262/images/o-ANNA-GUNN-facebook.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
-                    nickname = "",
+                    status = "Alive",
+                    seasonAppearances = listOf(1,2,3,5),
+                    nickname = "Sky",
                     portrayed = ""
                 ),
                 SeriesCharacter(
@@ -105,6 +103,7 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
     }
 
     private fun onCharacterClicked(character: SeriesCharacter) {
-
+        val fragment = DetailBottomSheetFragment.newInstance(character)
+        fragment.show(supportFragmentManager, DetailBottomSheetFragment::class.java.name)
     }
 }
