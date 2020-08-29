@@ -65,6 +65,26 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
                     seasonAppearances = emptyList(),
                     nickname = "",
                     portrayed = ""
+                ),
+                SeriesCharacter(
+                    5,
+                    "Skyler White",
+                    occupations = emptyList(),
+                    imgUrl = "https://s-i.huffpost.com/gen/1317262/images/o-ANNA-GUNN-facebook.jpg",
+                    status = "",
+                    seasonAppearances = emptyList(),
+                    nickname = "",
+                    portrayed = ""
+                ),
+                SeriesCharacter(
+                    6,
+                    "Walter White Jr.",
+                    occupations = emptyList(),
+                    imgUrl = "https://media1.popsugar-assets.com/files/thumbor/WeLUSvbAMS_GL4iELYAUzu7Bpv0/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2018/01/12/910/n/1922283/fb758e62b5daf3c9_TCDBRBA_EC011/i/RJ-Mitte-Walter-White-Jr.jpg",
+                    status = "",
+                    seasonAppearances = emptyList(),
+                    nickname = "",
+                    portrayed = ""
                 )
             )
         )
