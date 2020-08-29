@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?selectableItemBackground"
+    tools:layout_width="240dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,6 +23,31 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
             tools:src="@drawable/ic_baseline_person_24" />
+
+        <!-- A nice gradient background so our text looks nice -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/character_item_title_background"
+            app:layout_constraintBottom_toBottomOf="@id/characterTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/characterTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="2.0"
+            android:shadowRadius="4.0"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Walter White" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

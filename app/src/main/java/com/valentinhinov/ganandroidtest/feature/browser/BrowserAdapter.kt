@@ -42,6 +42,8 @@ class BrowserAdapter(context: Context, private val onCharacterClicked: (SeriesCh
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val character = getItem(position)
 
+        holder.itemView.characterTitle.text = character.name
+
         holder.itemView.characterImageView.load(character.imgUrl) {
             crossfade(true)
             placeholder(R.drawable.ic_baseline_person_24)
