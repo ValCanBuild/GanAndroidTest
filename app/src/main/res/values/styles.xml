@@ -1,10 +1,29 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverse</item>
+    </style>
+
+    <!-- This is the theme to apply on top of a toolbar using the android:theme attribute
+    in order to get it to use white icons -->
+    <style name="ToolbarOverlayTheme" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:title">""</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="titleTextColor">@color/textColorPrimary</item>
+        <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
     </style>
 
 </resources>

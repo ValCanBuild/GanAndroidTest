@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="character_cell_content_height">224dp</dimen>
+    <dimen name="character_cell_spacing">8dp</dimen>
+
+</resources>

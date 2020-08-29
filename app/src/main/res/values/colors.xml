@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#1b5e20</color> <!-- I associate camouflage green with Breaking Bad -->
+    <color name="colorPrimaryDark">#003300</color>
+    <color name="colorAccent">#fbc02d</color> <!-- Yellow also seems to be a colour they use often, good as accent -->
+
+    <color name="textColorPrimary">#ffffff</color>
+    <color name="textColorPrimaryInverse">#000000</color>
 </resources>
