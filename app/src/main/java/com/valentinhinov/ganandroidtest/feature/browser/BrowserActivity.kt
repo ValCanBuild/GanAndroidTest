@@ -1,6 +1,12 @@
 package com.valentinhinov.ganandroidtest.feature.browser
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.valentinhinov.ganandroidtest.R
@@ -13,8 +19,11 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
         BrowserAdapter(this, ::onCharacterClicked)
     }
 
+    private val filterSeasons = (0..4).map { true }.toBooleanArray() // 5 seasons
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setSupportActionBar(toolbar)
 
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
@@ -65,29 +74,34 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
                     seasonAppearances = emptyList(),
                     nickname = "",
                     portrayed = ""
-                ),
-                SeriesCharacter(
-                    5,
-                    "Skyler White",
-                    occupations = emptyList(),
-                    imgUrl = "https://s-i.huffpost.com/gen/1317262/images/o-ANNA-GUNN-facebook.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
-                    nickname = "",
-                    portrayed = ""
-                ),
-                SeriesCharacter(
-                    6,
-                    "Walter White Jr.",
-                    occupations = emptyList(),
-                    imgUrl = "https://media1.popsugar-assets.com/files/thumbor/WeLUSvbAMS_GL4iELYAUzu7Bpv0/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2018/01/12/910/n/1922283/fb758e62b5daf3c9_TCDBRBA_EC011/i/RJ-Mitte-Walter-White-Jr.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
-                    nickname = "",
-                    portrayed = ""
                 )
             )
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_browse, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.browse_filter -> {
+                showFilterDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showFilterDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.browse_filter_dialog_title)
+            .setMultiChoiceItems(R.array.season_names, filterSeasons) { dialog, which, isChecked ->
+
+            }
+            .show()
     }
 
     private fun onCharacterClicked(character: SeriesCharacter) {

@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#003300</color>
     <color name="colorAccent">#fbc02d</color> <!-- Yellow also seems to be a colour they use often, good as accent -->
 
-    <color name="textColorPrimary">#ffffff</color>
-    <color name="textColorPrimaryInverse">#000000</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="textColorPrimaryInverse">#ffffff</color>
 </resources>

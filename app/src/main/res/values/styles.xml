@@ -10,19 +10,20 @@
 
         <item name="toolbarStyle">@style/ToolbarStyle</item>
 
-
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverse</item>
     </style>
 
     <!-- This is the theme to apply on top of a toolbar using the android:theme attribute
     in order to get it to use white icons -->
-    <style name="ToolbarOverlayTheme" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="ToolbarOverlayTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/textColorPrimaryInverse</item>
+    </style>
 
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:title">""</item>
         <item name="android:background">?colorPrimary</item>
-        <item name="titleTextColor">@color/textColorPrimary</item>
+        <item name="titleTextColor">@color/textColorPrimaryInverse</item>
         <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
     </style>
 

@@ -43,6 +43,7 @@
             android:shadowDy="2.0"
             android:shadowRadius="4.0"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="?android:textColorPrimaryInverse"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
