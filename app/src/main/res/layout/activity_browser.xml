@@ -47,8 +47,7 @@
                 android:padding="16dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="?android:textColorPrimaryInverse" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         </androidx.cardview.widget.CardView>
 

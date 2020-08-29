@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import com.valentinhinov.ganandroidtest.R
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
@@ -42,10 +43,16 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
             viewModel.loadAllCharacters()
         }
 
+        searchField.doAfterTextChanged {
+            val searchTerm = it?.toString() ?: ""
+            viewModel.searchCharacters(searchTerm)
+        }
+
         viewModel.state.observe(this) { state ->
             adapter.submitList(state.characterList)
             tryAgainButton.isVisible = state.showRetryButton
             loadingIndicator.isVisible = state.isLoading
+            searchCardView.isVisible = !state.isLoading
         }
 
         viewModel.commands.observe(this) { command ->
@@ -78,8 +85,8 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
     private fun showFilterDialog() {
         AlertDialog.Builder(this)
             .setTitle(R.string.browse_filter_dialog_title)
-            .setMultiChoiceItems(R.array.season_names, filterSeasons) { dialog, which, isChecked ->
-
+            .setMultiChoiceItems(R.array.season_names, filterSeasons) { _, which, isChecked ->
+                viewModel.seasonFilterUpdated(index = which, isChecked = isChecked)
             }
             .show()
     }

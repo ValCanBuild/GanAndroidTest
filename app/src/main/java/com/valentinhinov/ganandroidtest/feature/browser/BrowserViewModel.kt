@@ -36,6 +36,8 @@ class BrowserViewModel(
         get() = requireNotNull(state.value)
 
     private lateinit var allCharacters: List<SeriesCharacter>
+    private val activeSeasons = (1..5).toMutableSet()
+    private var currentSearchTerm = ""
 
     fun loadAllCharacters() {
         state.value = currentState.copy(
@@ -64,4 +66,34 @@ class BrowserViewModel(
             }
         }
     }
+
+    fun searchCharacters(searchTerm: String) {
+        currentSearchTerm = searchTerm.trim()
+        filterList()
+    }
+
+    fun seasonFilterUpdated(index: Int, isChecked: Boolean) {
+        val season = index + 1
+        if (isChecked) {
+            activeSeasons.add(season)
+        } else {
+            activeSeasons.remove(season)
+        }
+
+        filterList()
+    }
+
+    private fun filterList() {
+        // really basic search
+        val listToShow = allCharacters.filter {
+            it.name.contains(currentSearchTerm, ignoreCase = true) &&
+                    it.seasonAppearances.intersect(activeSeasons).isNotEmpty()
+        }
+
+        state.value = currentState.copy(
+            characterList = listToShow
+        )
+    }
+
+
 }
