@@ -1,5 +1,6 @@
 package com.valentinhinov.ganandroidtest.feature.detail
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.core.os.bundleOf
 import coil.load
 import coil.request.ImageRequest
 import coil.transform.BlurTransformation
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.valentinhinov.ganandroidtest.R
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
@@ -48,6 +51,19 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             R.string.detail_season_appearance,
             character.seasonAppearances.joinToString(", ")
         )
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+
+        // It's really annoying that this is the only way to fully expand the bottom sheet when it is first shown
+        bottomSheetDialog.setOnShowListener {
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)?.let {
+                BottomSheetBehavior.from(it).setState(BottomSheetBehavior.STATE_EXPANDED)
+            }
+        }
+
+        return bottomSheetDialog
     }
 
     companion object {

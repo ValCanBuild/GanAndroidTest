@@ -15,6 +15,6 @@
 
     <string name="detail_occupations">Occupations:</string>
     <string name="detail_character_name">%1$s (%2$s)</string>
-    <string name="detail_season_appearance">Season appearance: %s</string>
+    <string name="detail_season_appearance">Season appearances: %s</string>
 
 </resources>

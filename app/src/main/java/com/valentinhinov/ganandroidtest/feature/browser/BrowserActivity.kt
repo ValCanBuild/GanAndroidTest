@@ -10,12 +10,17 @@ import com.valentinhinov.ganandroidtest.R
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
 import com.valentinhinov.ganandroidtest.feature.detail.DetailBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_browser.*
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.dsl.module
 
 class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
 
     private val adapter: BrowserAdapter by lazy {
         BrowserAdapter(this, ::onCharacterClicked)
     }
+
+    private val viewModel: BrowserViewModel by viewModel()
 
     private val filterSeasons = (0..4).map { true }.toBooleanArray() // 5 seasons
 
@@ -31,50 +36,12 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
             )
         )
 
-        adapter.submitList(
-            listOf(
-                SeriesCharacter(
-                    1,
-                    "Walter White",
-                    occupations = listOf("High School Chemistry Teacher", "Meth dealer"),
-                    imgUrl = "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
-                    status = "Presumed dead",
-                    seasonAppearances = listOf(1,2,3,4,5),
-                    nickname = "Heisenberg",
-                    portrayed = "Brian Cranston"
-                ),
-                SeriesCharacter(
-                    2,
-                    "Jesse Pinkman",
-                    occupations = listOf("Meth dealer"),
-                    imgUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Jesse_Pinkman2.jpg/220px-Jesse_Pinkman2.jpg",
-                    status = "Alive",
-                    seasonAppearances = listOf(1,2,3,5),
-                    nickname = "Cap n' Cook",
-                    portrayed = "AAron Paul"
-                ),
-                SeriesCharacter(
-                    3,
-                    "Skyler White",
-                    occupations = listOf("House Wife", "Book Keeper"),
-                    imgUrl = "https://s-i.huffpost.com/gen/1317262/images/o-ANNA-GUNN-facebook.jpg",
-                    status = "Alive",
-                    seasonAppearances = listOf(1,2,3,5),
-                    nickname = "Sky",
-                    portrayed = ""
-                ),
-                SeriesCharacter(
-                    4,
-                    "Walter White Jr.",
-                    occupations = emptyList(),
-                    imgUrl = "https://media1.popsugar-assets.com/files/thumbor/WeLUSvbAMS_GL4iELYAUzu7Bpv0/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2018/01/12/910/n/1922283/fb758e62b5daf3c9_TCDBRBA_EC011/i/RJ-Mitte-Walter-White-Jr.jpg",
-                    status = "",
-                    seasonAppearances = emptyList(),
-                    nickname = "",
-                    portrayed = ""
-                )
-            )
-        )
+        viewModel.characterList.observe(this) { characters ->
+            adapter.submitList(characters)
+        }
+
+        // TODO: show loading state
+        viewModel.loadAllCharacters()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,5 +72,11 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
     private fun onCharacterClicked(character: SeriesCharacter) {
         val fragment = DetailBottomSheetFragment.newInstance(character)
         fragment.show(supportFragmentManager, DetailBottomSheetFragment::class.java.name)
+    }
+
+    companion object {
+        val activityModule = module {
+            viewModel { BrowserViewModel(api = get()) }
+        }
     }
 }
