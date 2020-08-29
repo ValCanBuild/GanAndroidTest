@@ -4,7 +4,9 @@
     <string name="search_title">Search characters</string>
     <string name="browse_filter">Filter</string>
     <string name="browse_filter_dialog_title">Season filter</string>
-    
+    <string name="browse_error_loading">Error loading data</string>
+    <string name="browse_try_again">Try again</string>
+
     <string-array name="season_names">
         <item>Season 1</item>
         <item>Season 2</item>

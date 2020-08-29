@@ -3,8 +3,10 @@ package com.valentinhinov.ganandroidtest.feature.browser
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.valentinhinov.ganandroidtest.R
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
@@ -36,11 +38,24 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
             )
         )
 
-        viewModel.characterList.observe(this) { characters ->
-            adapter.submitList(characters)
+        tryAgainButton.setOnClickListener {
+            viewModel.loadAllCharacters()
         }
 
-        // TODO: show loading state
+        viewModel.state.observe(this) { state ->
+            adapter.submitList(state.characterList)
+            tryAgainButton.isVisible = state.showRetryButton
+            loadingIndicator.isVisible = state.isLoading
+        }
+
+        viewModel.commands.observe(this) { command ->
+            when (command) {
+                Command.ShowLoadError -> {
+                    Toast.makeText(this, R.string.browse_error_loading, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         viewModel.loadAllCharacters()
     }
 

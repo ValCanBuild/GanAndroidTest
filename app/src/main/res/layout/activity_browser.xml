@@ -65,4 +65,21 @@
         tools:itemCount="6"
         tools:listitem="@layout/item_character" />
 
+    <Button
+        android:id="@+id/tryAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/browse_try_again"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:text="@string/browse_try_again" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
