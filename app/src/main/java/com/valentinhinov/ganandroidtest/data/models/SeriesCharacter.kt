@@ -10,7 +10,6 @@ import kotlinx.serialization.Serializable
 data class SeriesCharacter(
     @SerialName("char_id")
     val id: Int,
-    val birthday: String,
     val name: String,
     @SerialName("occupation")
     val occupations: List<String>,
@@ -19,9 +18,5 @@ data class SeriesCharacter(
     val status: String,
     @SerialName("appearance")
     val seasonAppearances: List<Int>,
-    val nickname: String,
-    val category: String,
-    @SerialName("better_call_saul_appearance")
-    val betterCallSaulAppearance: List<Int>,
-    val portrayed: String
+    val nickname: String
 ) : Parcelable

@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 
 sealed class Command {
     object ShowLoadError : Command()
+    data class ShowCharacterDetail(val character: SeriesCharacter) : Command()
 }
 
 data class State(
@@ -81,6 +82,10 @@ class BrowserViewModel(
         }
 
         filterList()
+    }
+
+    fun onCharacterClicked(character: SeriesCharacter) {
+        commands.value = Command.ShowCharacterDetail(character)
     }
 
     private fun filterList() {

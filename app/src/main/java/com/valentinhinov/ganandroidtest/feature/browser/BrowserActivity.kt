@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import com.valentinhinov.ganandroidtest.R
-import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
 import com.valentinhinov.ganandroidtest.feature.detail.DetailBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_browser.*
 import org.koin.android.viewmodel.dsl.viewModel
@@ -20,7 +19,7 @@ import org.koin.dsl.module
 class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
 
     private val adapter: BrowserAdapter by lazy {
-        BrowserAdapter(this, ::onCharacterClicked)
+        BrowserAdapter(this, viewModel::onCharacterClicked)
     }
 
     private val viewModel: BrowserViewModel by viewModel()
@@ -60,6 +59,10 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
                 Command.ShowLoadError -> {
                     Toast.makeText(this, R.string.browse_error_loading, Toast.LENGTH_SHORT).show()
                 }
+                is Command.ShowCharacterDetail -> {
+                    val fragment = DetailBottomSheetFragment.newInstance(command.character)
+                    fragment.show(supportFragmentManager, DetailBottomSheetFragment::class.java.name)
+                }
             }
         }
 
@@ -89,11 +92,6 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
                 viewModel.seasonFilterUpdated(index = which, isChecked = isChecked)
             }
             .show()
-    }
-
-    private fun onCharacterClicked(character: SeriesCharacter) {
-        val fragment = DetailBottomSheetFragment.newInstance(character)
-        fragment.show(supportFragmentManager, DetailBottomSheetFragment::class.java.name)
     }
 
     companion object {

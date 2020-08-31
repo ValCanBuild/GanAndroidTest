@@ -18,7 +18,10 @@ object ApiModule {
             Retrofit.Builder()
                 .baseUrl("https://breakingbadapi.com/api/")
                 .client(get())
-                .addConverterFactory(Json.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(
+                    Json { ignoreUnknownKeys = true }
+                        .asConverterFactory(MediaType.get("application/json"))
+                )
                 .build()
                 .create(BreakingBadApi::class.java)
         }
