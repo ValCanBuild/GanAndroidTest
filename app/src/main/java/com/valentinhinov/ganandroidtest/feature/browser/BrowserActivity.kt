@@ -51,7 +51,7 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
             adapter.submitList(state.characterList)
             tryAgainButton.isVisible = state.showRetryButton
             loadingIndicator.isVisible = state.isLoading
-            searchCardView.isVisible = !state.isLoading
+            searchCardView.isVisible = !state.isLoading && !state.showRetryButton
         }
 
         viewModel.commands.observe(this) { command ->
@@ -96,7 +96,7 @@ class BrowserActivity : AppCompatActivity(R.layout.activity_browser) {
 
     companion object {
         val activityModule = module {
-            viewModel { BrowserViewModel(api = get()) }
+            viewModel { BrowserViewModel(api = get(), coroutineContextProvider = get()) }
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.valentinhinov.ganandroidtest.feature.browser
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.valentinhinov.ganandroidtest.data.api.BreakingBadApi
 import com.valentinhinov.ganandroidtest.data.models.SeriesCharacter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.valentinhinov.ganandroidtest.di.CoroutineContextProvider
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -22,7 +22,8 @@ data class State(
 )
 
 class BrowserViewModel(
-    private val api: BreakingBadApi
+    private val api: BreakingBadApi,
+    private val coroutineContextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
     val state: MutableLiveData<State> by lazy {
@@ -36,6 +37,14 @@ class BrowserViewModel(
     private val currentState: State
         get() = requireNotNull(state.value)
 
+    private val handler = CoroutineExceptionHandler { _, _ ->
+        commands.value = Command.ShowLoadError
+        state.value = currentState.copy(
+            isLoading = false,
+            showRetryButton = true
+        )
+    }
+
     private lateinit var allCharacters: List<SeriesCharacter>
     private val activeSeasons = (1..5).toMutableSet()
     private var currentSearchTerm = ""
@@ -46,25 +55,14 @@ class BrowserViewModel(
             showRetryButton = false
         )
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                allCharacters = api.getAllCharacters()
-                withContext(Dispatchers.Main) {
-                    state.value = currentState.copy(
-                        characterList = allCharacters,
-                        isLoading = false
-                    )
-                }
-            } catch (e: Throwable) {
-                withContext(Dispatchers.Main) {
-                    commands.value = Command.ShowLoadError
-                    state.value = currentState.copy(
-                        isLoading = false,
-                        showRetryButton = true
-                    )
-                }
-                Log.e(BrowserViewModel::class.java.name, "Error while fetching character data", e)
+        viewModelScope.launch(handler) {
+            allCharacters = withContext(coroutineContextProvider.io) {
+                api.getAllCharacters()
             }
+            state.value = currentState.copy(
+                characterList = allCharacters,
+                isLoading = false
+            )
         }
     }
 
@@ -99,6 +97,4 @@ class BrowserViewModel(
             characterList = listToShow
         )
     }
-
-
 }
